@@ -5,15 +5,18 @@ import CustomButton from "./CustomButton";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const booklist=useSelector((state:any)=>state.cart.bookList)
+  const booklist = useSelector((state: any) => state.cart.bookList);
 
   return (
     <div className="bg-[#3A80F2] w-full flex justify-center items-center h-[80px] ">
-      <h1 onClick={() => navigate("/")} className="text-[30px] font-bold cursor-pointer">
+      <h1
+        onClick={() => navigate("/")}
+        className="text-[30px] font-bold cursor-pointer text-white"
+      >
         Book Store
       </h1>
 
-      <div className="absolute right-6 bg-slate-400 flex justify-center items-center rounded-lg px-3">
+      <div className="absolute right-2 sm:right-6 bg-slate-400 flex justify-center items-center rounded-lg px-3">
         <CustomButton
           title="My Cart"
           onClick={() => navigate("/cart")}

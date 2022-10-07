@@ -4,22 +4,26 @@ import { addBook } from "../store";
 import CustomButton from "./CustomButton";
 
 export interface BookProps {
-  bookprops: { title: string; cover_url: string;author:string ;pages:string;id:string};
+  bookprops: {
+    title: string;
+    cover_url: string;
+    author: string;
+    pages: string;
+    id: string;
+  };
 }
 const BookItem = ({ bookprops }: BookProps) => {
-
- const dispatch=useDispatch()
-    const handleAddToCart=(item:any)=>{
-      console.log(333,item)
-      dispatch(addBook(item))
-    }
+  const dispatch = useDispatch();
+  const handleAddToCart = (item: any) => {
+    dispatch(addBook(item));
+  };
   return (
-    <div className="h-[200px] rounded-[30px] bg-white mb-3 flex justify-between items-center px-10 py-5">
-      <div className="w-[20%] flex justify-start items-center">
+    <div className="h-[200px] shadow-lg  rounded-[30px] bg-white mb-3 flex justify-between items-center px-2 sm:px-10 py-5">
+      <div className="w-[20%] flex justify-start items-center mr-2">
         <img className="w-[120px]" src={bookprops.cover_url} alt="book-cover" />
       </div>
       <div className="w-[60%]">
-        <h2 className="font-bold text-2xl">{bookprops.title}</h2>
+        <h2 className="font-bold text-lg sm:text-2xl">{bookprops.title}</h2>
         <h6>
           <span className="font-bold">Author:</span> {bookprops.author}
         </h6>

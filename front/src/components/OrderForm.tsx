@@ -49,17 +49,21 @@ const OrderForm = () => {
     }
   };
   return (
-    <div className="flex justify-between">
-      <div className="mb-1 bg-white p-3 rounded-xl w-[38%]">
+    <div className="flex justify-between flex-wrap">
+      <div className="mb-1 bg-white p-3 rounded-xl w-[100%] sm:w-[38%] shadow-lg">
         <h4 className="font-bold text-sm text-center bg-slate-200 p-2 mb-2 rounded-lg">
           My Orders
         </h4>
         {booklist.map((item: any) => (
           <div className="flex mb-1">
-            <div>
-              <img className="w-[60px]" src={item.cover_url} alt="book-cover" />
+            <div className="mr-2">
+              <img
+                className="max-w-[60px]"
+                src={item.cover_url}
+                alt="book-cover"
+              />
             </div>
-            <div className="ml-2">
+            <div>
               <h4 className="font-bold text-sm">{item.title}</h4>
               <h6>
                 <span className="font-bold text-sm">Quantity:</span>
@@ -69,7 +73,7 @@ const OrderForm = () => {
           </div>
         ))}
       </div>
-      <div className="bg-white px-3 py-5 rounded-xl w-[60%] h-[280px]">
+      <div className="bg-white px-3 py-5 rounded-xl w-[100%] sm:w-[60%] h-[490px] sm:h-[280px] shadow-lg">
         <Formik
           initialValues={{
             first_name: "",
@@ -83,7 +87,7 @@ const OrderForm = () => {
           }}
         >
           <Form>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="flex flex-col">
                 <label htmlFor="first_name">First Name</label>
                 <Field
@@ -107,7 +111,7 @@ const OrderForm = () => {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-3 mt-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5">
               <div className="flex flex-col">
                 <label htmlFor="city">City</label>
                 <Field className="formInput" id="city" name="city" />

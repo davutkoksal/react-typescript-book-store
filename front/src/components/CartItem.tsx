@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import {  removeBook } from "../store";
+import { removeBook } from "../store";
 import CustomButton from "./CustomButton";
 
 export interface CartItemPorps {
@@ -19,12 +19,16 @@ const CartItem = ({ cartItemPorps }: CartItemPorps) => {
     dispatch(removeBook(item.id));
   };
   return (
-    <div className="h-[200px] w-full rounded-[30px] bg-white mb-3 flex justify-between items-center px-10 py-5">
-      <div className="w-[20%] flex justify-start items-center">
-        <img className="w-[120px]" src={cartItemPorps.cover_url} alt="book-cover" />
+    <div className="h-[200px] shadow-lg w-full rounded-[30px] bg-white mb-3 flex justify-between items-center px-2 sm:px-10 py-5">
+      <div className="w-[20%] flex justify-start items-center mr-2">
+        <img
+          className="w-[120px]"
+          src={cartItemPorps.cover_url}
+          alt="book-cover"
+        />
       </div>
       <div className="w-[60%]">
-        <h2 className="font-bold text-2xl">{cartItemPorps.title}</h2>
+        <h2 className="font-bold text-md sm:text-2xl">{cartItemPorps.title}</h2>
         <h6>
           <span className="font-bold">Author:</span> {cartItemPorps.author}
         </h6>
