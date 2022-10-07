@@ -1,0 +1,28 @@
+body {
+  background-color: rgba(241, 243, 244, 1);
+}
+
+.formInput{
+height:40px;
+border:1px solid gray;
+border-radius:8px;
+padding:5px 10px
+}
+.errorMessage{
+  color:red
+
+}
+.customModal{
+  position:  absolute;
+  width:95%;
+  height:300px;
+  background-color:rgba(0,0,0,0.3);
+  display:flex;
+  justify-content:center;
+  align-items:center
+
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
