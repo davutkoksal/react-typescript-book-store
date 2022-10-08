@@ -4,10 +4,14 @@ import { createSlice, current } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface CartState {
+  allBooksList: any[];
+  totalBookCount: number;
   bookList: any[];
 }
 
 const initialState: CartState = {
+  allBooksList: [],
+  totalBookCount: 0,
   bookList: [],
 };
 
@@ -15,6 +19,10 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    getAllBooksList: (state, action: PayloadAction<any>) => {
+      state.allBooksList.push(...action.payload.data);
+      state.totalBookCount = action.payload.metadata?.total_records;
+    },
     addBook: (state, action: PayloadAction<any>) => {
       const isAvailable = state.bookList.find(
         (item) => item.id === action.payload?.id
@@ -39,7 +47,7 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addBook, removeBook } = cartSlice.actions;
+export const { getAllBooksList, addBook, removeBook } = cartSlice.actions;
 
 export const store = configureStore({
   reducer: { cart: cartSlice.reducer },

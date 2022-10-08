@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import BookItem from "../components/BookItem";
 import CustomButton from "../components/CustomButton";
+import { getAllBooksList } from "../store";
 
 const Homepage = () => {
-  const [bookList, setBookList] = useState<any[]>([]);
   const [pageCount, setPageCount] = useState(2);
-  const [totalBookCount, setTotalBookCount] = useState(0);
+  const dispatch = useDispatch();
+  const allBooksList = useSelector((state: any) => state.cart.allBooksList);
+  const totalBookCount = useSelector((state: any) => state.cart.totalBookCount);
   const getData = async () => {
     const response = await fetch("http://localhost:3001/api/book?page=1");
     const data = await response.json();
-    setBookList(data?.data);
-    setTotalBookCount(data?.metadata?.total_records);
+    dispatch(getAllBooksList(data));
   };
 
   const handleLoadMore = async () => {
@@ -18,20 +20,22 @@ const Homepage = () => {
       `http://localhost:3001/api/book?page=${pageCount}`
     );
     const data = await response.json();
-    setBookList([...bookList, ...data.data]);
+    dispatch(getAllBooksList(data));
     setPageCount((prev) => prev + 1);
   };
 
   useEffect(() => {
-    getData();
+    if (allBooksList.length === 0) {
+      getData();
+    }
   }, []);
 
   return (
     <div className="p-5">
-      {bookList.map((item: any) => (
+      {allBooksList.map((item: any) => (
         <BookItem key={item.id} bookprops={item} />
       ))}
-      {totalBookCount > bookList.length && (
+      {totalBookCount > allBooksList.length && (
         <div className="flex justify-end">
           <CustomButton
             onClick={() => handleLoadMore()}
