@@ -6,13 +6,20 @@ import { getAllBooksList } from "../store";
 
 const Homepage = () => {
   const [pageCount, setPageCount] = useState(2);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const allBooksList = useSelector((state: any) => state.cart.allBooksList);
   const totalBookCount = useSelector((state: any) => state.cart.totalBookCount);
   const getData = async () => {
-    const response = await fetch("http://localhost:3001/api/book?page=1");
-    const data = await response.json();
-    dispatch(getAllBooksList(data));
+    try {
+      setLoading(true);
+      const response = await fetch("http://localhost:3001/api/book?page=1");
+      const data = await response.json();
+      dispatch(getAllBooksList(data));
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleLoadMore = async () => {
@@ -29,6 +36,13 @@ const Homepage = () => {
       getData();
     }
   }, []);
+  if (loading) {
+    return (
+      <div className="flex justify-center text-[30px] font-bold mt-[50px]">
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <div className="p-5">

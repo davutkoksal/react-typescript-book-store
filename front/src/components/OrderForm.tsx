@@ -6,12 +6,12 @@ import * as Yup from "yup";
 
 const OrderFormSchema = Yup.object().shape({
   first_name: Yup.string()
-    .min(4, "Too Short!")
-    .max(50, "Too Long!")
+    .min(4, "First Name must be at least 4 characters!")
+    .max(50, "First Name must be max 50 characters!")
     .required("Please enter your first name"),
   last_name: Yup.string()
-    .min(5, "Too Short!")
-    .max(50, "Too Long!")
+    .min(5, "Last Name must be at least 5 characters!")
+    .max(50, "Last Name must be max 50 characters!")
     .required("Please enter your last name"),
   city: Yup.string().required("Please enter your city"),
   zip_code: Yup.string()
@@ -20,9 +20,7 @@ const OrderFormSchema = Yup.object().shape({
 });
 const OrderForm = () => {
   const [showModal, setShowModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState(
-    "Your Order Successfully Created"
-  );
+  const [modalMessage, setModalMessage] = useState("");
 
   const booklist = useSelector((state: any) => state.cart.bookList);
 
@@ -36,15 +34,21 @@ const OrderForm = () => {
       ...values,
     };
     if (orderList.length > 0) {
-      const response = await axios.post(
-        "http://localhost:3001/api/order",
-        postData
-      );
-      if (response.status === 201) {
+      try {
+        const response = await axios.post(
+          "http://localhost:3001/api/order",
+          postData
+        );
+        if (response.status === 201) {
+          setModalMessage("Your Order Successfully Created");
+          setShowModal(true);
+        }
+      } catch (error) {
+        setModalMessage("Something went wrong!Please try again later!");
         setShowModal(true);
       }
     } else {
-      setModalMessage("You have no books in your cart");
+      setModalMessage("You have no books in your cart.Please add some!");
       setShowModal(true);
     }
   };
