@@ -6,12 +6,14 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 export interface CartState {
   allBooksList: any[];
   totalBookCount: number;
+  pageCount: number;
   bookList: any[];
 }
 
 const initialState: CartState = {
   allBooksList: [],
   totalBookCount: 0,
+  pageCount: 2,
   bookList: [],
 };
 
@@ -44,10 +46,14 @@ export const cartSlice = createSlice({
         (item) => item.id !== action.payload
       );
     },
+    increasePageCount: (state) => {
+      state.pageCount = state.pageCount + 1;
+    },
   },
 });
 
-export const { getAllBooksList, addBook, removeBook } = cartSlice.actions;
+export const { getAllBooksList, addBook, removeBook, increasePageCount } =
+  cartSlice.actions;
 
 export const store = configureStore({
   reducer: { cart: cartSlice.reducer },

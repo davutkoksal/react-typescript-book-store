@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import BookItem from "../components/BookItem";
 import CustomButton from "../components/CustomButton";
-import { getAllBooksList } from "../store";
+import { getAllBooksList, increasePageCount } from "../store";
 
 const Homepage = () => {
-  const [pageCount, setPageCount] = useState(2);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const allBooksList = useSelector((state: any) => state.cart.allBooksList);
+  const pageCount = useSelector((state: any) => state.cart.pageCount);
   const totalBookCount = useSelector((state: any) => state.cart.totalBookCount);
   const getData = async () => {
     try {
@@ -28,7 +28,7 @@ const Homepage = () => {
     );
     const data = await response.json();
     dispatch(getAllBooksList(data));
-    setPageCount((prev) => prev + 1);
+    dispatch(increasePageCount());
   };
 
   useEffect(() => {
